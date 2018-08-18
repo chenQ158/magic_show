@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>jQuery红色样式分页插件下载 - xw素材网</title>
+<link rel="stylesheet" href="/styles/pages/index.css">
+<link rel="stylesheet" type="text/css" href="/styles/other/zxf_page.css">
+</head>
+<body>
+<div id="show"></div>
+<div class="zxf_pagediv"></div>
+<script src="/scripts/jquery.js" type="text/javascript"></script>
+<script src="/scripts/zxf_page.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+$(".zxf_pagediv").createPage({
+	pageNum: 51,
+	current: 6,
+	backfun: function(e) {
+		var url = '/page/'+e.current+'/10';
+		console.log(url);
+		$.ajax({url: url, dataType: 'json'})
+			.done(function(data) {
+				var show = $('#show');
+				var imageVos = data.imageVos;
+				var content = '';
+				for (i in imageVos) {
+					var imageVo = imageVos[i].map;
+					console.log(imageVo);
+					var article_before = ['<article class="mod">',
+						'<header class="mod-hd">',
+				            '<time class="time">', imageVo.time, '</time>',
+				            '<a href="/profile/', imageVo.user.id, '" class="avatar">',
+				                '<img src="', imageVo.user.headUrl, '">',
+				            '</a>',
+				            '<div class="profile-info">',
+				                '<a title="', imageVo.user.nickname, '" href="/profile/',imageVo.user.id,'">',imageVo.user.nickname,'</a>',
+				            '</div>',
+				        '</header>',
+				        '<div class="mod-bd">',
+				            '<div class="img-box">',
+				                '<a href="/details/', imageVo.image.id, '" title="', imageVo.image.id, '">',
+				                '<img src="', imageVo.image.url, '">',
+				                '</a>',
+				            '</div>',
+				        '</div>'].join('');
+				        
+				    var article_after = ['<div class="mod-ft">',
+									        '<section class="times">',
+								                '<span></span>',
+								                '<span>6.2百万</span>',
+								                '<span> 次浏览</span>',
+								            '</section>',
+								            '<ul class="discuss-list  js-discuss-list">',
+								                '<li class="more-discuss">',
+								                    '<a>',
+								                        '<span>全部 </span><span class="">', imageVo.commentVos.length, '</span>',
+								                        '<span> 条评论</span></a>',
+								                '</li>'].join('');
+				    for (j in imageVo.commentVos) {
+				    	var commentVo = imageVo.commentVos[j].map;
+				    	if (j > 3) break;
+				    	
+				    	article_after += ['<li>',
+						                    '<a href="#" class=" icon-remove" title="删除评论"></a>',
+						                    '<a class="_4zhc5 _iqaka" title="',commentVo.owner.nickname,'" href="/profile/',commentVo.owner.id,'" data-reactid=".0.1.0.0.0.2.1.2:$comment-17856951190001917.1">',commentVo.owner.nickname,'</a>',
+						                    '<span>',
+						                        '<span>',commentVo.comment.content,'</span>',
+						                    '</span>',
+						                '</li>'].join('');
+				    }
+				    article_after += ['</ul>',
+				            '<section class="discuss-edit">',
+				                '<a class="icon-heart-empty"></a>',
+				                '<input placeholder="添加评论..." id="jsCmt" type="text">',
+				                '<button class="more-info" id="jsSubmit">更多选项</button>',
+				            '</section>',
+				        '</div>',
+				    '</article>'].join();
+				    
+				    content += (article_before + article_after);
+				}
+				show.html(content);
+				
+		}).fail(function() {
+			alert("访问失败");
+		});
+	}
+});
+</script>
+</body>	
+</html>

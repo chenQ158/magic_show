@@ -1,0 +1,19 @@
+<meta charset="utf-8">
+<header class="header">
+    <div class="header-cont">
+        <a href="/" title="Magic Show" class="logo">logo</a>
+        <div class="web-menu">
+            <#if current_user??>
+                <a href="/profile/${current_user.id}" style="display:inline-block;" class="profile-ico" title="个人主页">个人主页</a>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="/logout/" style="display:inline-block;" title="消息" class="message-ico" style="color:red">消息</a><span style="color:red">新</span>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="/logout/" style="display:inline-block;" title="退出" class="exit-ico">退出</a>
+            <#else>
+                <a href="/regLogin/?next=" class="profile-ico" title="登陆注册" title="登陆注册">登陆注册</a>
+            </#if>
+            
+            <#-- ${Request.requestUrl} -->
+        </div>
+    </div>
+</header>

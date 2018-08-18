@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="Keywords" content="美图,高清,壁纸,分享">
+    <title>个人页</title>
+    <link rel="stylesheet" href="/styles/pages/profile.css">
+</head>
+<body>
+    <div class="container">
+        <section>
+			<#include "/common/header.html">
+
+			<div class="page-main clearfix">
+			    <article>
+			        <header class="profile-detail clearfix">
+			            <div class="profile-avatar">
+			                <img class="_8gpiy _r43r5 _f2b2t" src="${user.headUrl}">
+			            </div>
+			            <div class="profile-content">
+			                <div class="profile-info-main" data-reactid=".0.1.0.0:0.1.0">
+			                    <h1 class="name" title="taylorswift">${user.nickname}</h1>
+			                    <#if user.isActived>
+			                    	<span class="verified" title="已验证">已验证</span>
+			                    <#elseif current_user.id == user.id>
+			                    	<a class="unverified" title="未激活" href="/activated">激活</a>									
+								<#else>
+									<a class="unverified" title="未激活">未激活</a>
+			                    </#if>
+			                    <#-- -->
+			                    <#if user.id == current_user.id>
+			                    
+			                        <span class="_jxp6f _e616g" style="display:inline-block;position:relative;">
+			                        <form method="post" action="/images/upload" enctype="multipart/form-data">
+			                            <button class="btn-success">上传图片</button>
+			                            <input name="file" multiple="multiple" type="file" onchange="this.parentNode.submit()" style="opacity:0;position:absolute;top:0;left:0;display:block;width:100%;height:100%;cursor:pointer;">
+			                        </form>
+			                    </span>
+			                    <button class="more-info">选项</button>
+			                    <#-- -->
+			                    </#if>
+			                   
+			                </div>
+			                <div class="profile-info-sub">
+			                    <h2>Taylor Swift</h2>
+			                    <span class="birth">Born in 1989.</span>
+			                </div>
+			                <ul class="status-list clearfix">
+			                    <li>
+			                        <span class="s-title">已上传图片 </span>
+			                        <span class="s-num">${totalCount}</span>
+			                    </li>
+			                    <li>
+			                        <span class="s-num">909</span>
+			                        <span class="s-title">人关注 </span>
+			                    </li>
+			                    <li>
+			                        <span class="s-title">已关注 </span>
+			                        <span class="s-num">909万</span>
+			                    </li>
+			                </ul>
+			            </div>
+			        </header>
+			        <div class="list-mod">
+			            <div class="list clearfix js-image-list">
+			                <#list images as image >
+			                <a class="item" href="/details/${image.id?c}">
+			                    <div class="img-box">
+			                        <img src="${image.url}">
+			                    </div>
+			                    <!-- <span class="ico-video">视频</span> -->
+			                    <div class="img-mask"></div>
+			                    <div class="interaction-wrap">
+			                        <div class="interaction-item"><i class="icon-comment"></i>${image.commentCount}</div>
+			                    </div>
+			                </a>
+			                </#list>
+			            </div>
+			            <#if curPage != totalPage >
+			            <div class="more-content js-load-more">
+			                <a class="_oidfu" href="javascript:void(0);">更多</a>
+			            </div>
+			            </#if>
+			        </div>
+			    </article>
+			</div>
+			
+			<#include "/common/footer.html">
+		
+		</section>
+    </div>
+    <script type="text/javascript">
+        window.uid = ${user.id};
+    </script>
+    <script type="text/javascript" src="/scripts/jquery.js"></script>
+    <script type="text/javascript" src="/scripts/profile.js"></script>
+</body>
+</html>

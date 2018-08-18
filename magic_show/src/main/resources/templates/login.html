@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="Keywords" content="美图,高清,壁纸,分享">
+    <title>登陆注册</title>
+    <link rel="stylesheet" href="/styles/pages/login.css">
+</head>
+<body>
+    <div class="container">
+        <section>
+			<#include "/common/header.html">
+			
+			<main class="main login-main" role="main">
+			    <article class="login-cont clearfix">
+			        <div class="login-pic-box">
+			            <img src="/images/res/login.jpg">
+			        </div>
+			        <div class="login-wrapper">
+			            <div class="login-box">
+			                <form id="login_reg_form" method="POST">
+			                    
+			                    <#if !msg??>
+			                    <h2 class="login-hd">注册 牛客</h2>
+			                    <#else>
+			                    <h2 class="login-hd">${msg}</h2>
+			                    </#if>
+			                    <#if next??>
+			                    <input type="hidden" name="next" value="${next}"/>
+			                    </#if>
+			                    
+			                    <div class="form-item">
+			                        <input class="input-txt"  aria-label="邮箱" aria-required="true" autocapitalize="off" autocorrect="off" maxlength="30" name="email" placeholder="邮箱" value="" type="email" data-reactid=".0.1.0.1.0.1.0.5.0">
+			                    </div>
+			                    <div class="form-item">
+			                        <input class="input-txt" aria-describedby="" aria-label="密码" aria-required="true" autocapitalize="off" autocorrect="off" name="password" placeholder="密码" type="password" value="" data-reactid=".0.1.0.1.0.1.0.6.0">
+			                    </div>
+			                    <div class="form-item">
+			                        <input type="checkbox" name="remember" title="记住密码">记住密码
+			                    </div>
+			                    <div class="btn-wrapper">
+			                        <button class="btn-primary" onclick="form=document.getElementById('login_reg_form');form.action='/reg';">注册</button>
+			                        <button class="btn-primary" onclick="form=document.getElementById('login_reg_form');form.action='/login';">登录</button>
+			                    </div>
+			                    <p class="agreenment">
+			                        <span>注册即表示你同意我们的 </span>
+			                        <a class="agreenment-link" href="/legal/terms/" target="_blank">条款</a>
+			                        <span data-reactid=".0.1.0.1.0.1.0.9.2"> 和 </span>
+			                        <a class="agreenment-link" href="/legal/privacy/" target="_blank">隐私权政策</a>
+			                        <span> 。</span>
+			                    </p>
+			                </form>
+			            </div>
+			        </div>
+			    </article>
+			</main>
+			
+			<#include "/common/footer.html">
+		</section>
+    </div>
+</body>
+</html>

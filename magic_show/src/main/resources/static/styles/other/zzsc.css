@@ -1,0 +1,28 @@
+a:link, a:visited { color: #444; text-decoration: none; -webkit-transition: color .4s ease-in-out; -moz-transition: color .4s ease-in-out; -ms-transition: color .4s ease-in-out; -o-transition: color .4s ease-in-out; transition: color .4s ease-in-out; }
+a:hover { color: #c36; text-decoration: underline; }
+.pagnation { text-align: center; margin-top: 32px; }
+.pagnation a { 
+	display: inline-block;
+    width: 20px;
+    height: 19px;
+    line-height: 21px;
+    background: url(/images/img/sprite.png) no-repeat 1px -16px;
+    background-size: 280px;
+    /* margin-left: 4px; */
+    font-size: 15px;
+    vertical-align: top;
+    -webkit-transition: all .4s ease-in-out;
+    -moz-transition: all .4s ease-in-out;
+    -ms-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out; 
+}
+.pagnation a:hover { background-position: 1px -36px; color: #fff; text-decoration: none; }
+.pagnation .prebtn, .pagnation .nextbtn { line-height: 555px; }
+.pagnation .prebtn { background-position: -19px -16px; }
+.pagnation .prebtn:hover { background-position: -19px -35px; }
+.pagnation .nextbtn { background-position: -38px -16px }
+.pagnation .nextbtn:hover { background-position: -38px -35px; }
+.pagnation .current { background-position: 1px -36px; color: #fff }
+.pagnation-tips { margin-top: 10px; color: #999; text-align: center }
+

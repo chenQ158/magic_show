@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="Keywords" content="美图,高清,壁纸,分享">
+    <title>图片详情</title>
+    <link rel="stylesheet" href="/styles/pages/detail.css">
+    <link rel="stylesheet" type="text/css" href="/styles/other/zzsc.css">
+</head>
+<body>
+    <div class="container">
+        <section>
+			<#include "/common/header.html">
+			
+			<div class="page-main clearfix">
+			    <article>
+			        <div class="pic-wrapper">
+			            <a href="${image.url}" title="查看原图" target="_blank">
+			            <img src="${image.url}">
+			            </a>
+			        </div>
+			        <div class="pic-discuss">
+			            <header class="discuss-hd">
+			                <a href="/profile/${user.id?c}" class="avatar">
+			                    <img src="${user.headUrl}">
+			                </a>
+			                <div class="profile-info">
+			                    <a title="${user.nickname}" href="/profile/${user.id?c}">${user.nickname}</a>
+			                </div>
+			                <time class="discuss-time" datetime="2016-05-07T02:21:41.000Z" title="2016年5月7日" data-reactid=".0.1.0.0.0.2.0.1.0">2 周</time>
+			            </header>
+			            <section class="like-item">
+			                
+			                <div class="like-names">
+			                    <a class="_4zhc5 _lx2l2" title="redmadqueen" href="/redmadqueen/">redmadqueen</a>、
+			                    <a class="_4zhc5 _lx2l2" title="chuan.hehe" href="/chuan.hehe/" data-reactid=".0.1.0.0.0.2.0.0.3">chuan.hehe</a>、
+			                    <a class="_4zhc5 _lx2l2" title="relationshipinspire" href="/relationshipinspire/" data-reactid=".0.1.0.0.0.2.0.0.5">relationshipinspire</a>、
+			                    <a class="_4zhc5 _lx2l2" title="archisdy" href="/archisdy/" data-reactid=".0.1.0.0.0.2.0.0.7">archisdy</a>、
+			                    <a class="_4zhc5 _lx2l2" title="scottiecosmos" href="/scottiecosmos/" data-reactid=".0.1.0.0.0.2.0.0.9">scottiecosmos</a>
+			                    <span data-reactid=".0.1.0.0.0.2.0.0.a"> 赞了</span>
+			                </div>
+			            </section>
+			            <ul class="discuss-list js-discuss-list">
+			                <#list commentVos as commentVo>
+			                <li>
+			                    <#if current_user??>
+			                    	<#if current_user.id == commentVo.owner.id>
+			                    	<a class=" icon-remove remove_comment" href="javascript:void(0)" title="删除评论" id="${commentVo.comment.id?c}"></a>
+			                    	</#if>
+			                    </#if>
+			                    
+			                    <a class="_4zhc5 _iqaka" title="${commentVo.owner.nickname}" href="/profile/${commentVo.owner.id?c}">${commentVo.owner.nickname}</a>
+			                    <span>
+			                        <span>${commentVo.comment.content}</span>
+			                    </span>
+			                </li>
+			                </#list>
+			            </ul>
+			            
+			            <div class="zxf_pagediv pagnation"></div>
+			            
+			            <section class="discuss-edit">
+			                <a class="icon-heart-empty"></a>
+			                <input placeholder="添加评论..." id="jsCmt" type="text">
+			                <button class="more-info" id="jsSubmit">更多选项</button>
+			            </section>
+			        </div>
+			    </article>
+			</div>
+
+			<#include "/common/footer.html">
+			
+		</section>
+    </div>
+	<script type="text/javascript" src="/scripts/jquery.js"></script>
+	<script type="text/javascript" src="/scripts/detail.js"></script>
+    <script type="text/javascript" src="/scripts/comm_page.js"></script>
+	<script type="text/javascript">
+	    window.imageId = ${image.id?c};
+	    window.userId = ${(current_user.id)!0};
+		$(".zxf_pagediv").createPage({
+			pageNum: ${totalPage?c},
+			current: ${curPage?c},
+			backfun: function(e) {
+				var url = '/comments/'+${image.id?c}+'/'+e.current+'/8';
+				console.log(url);
+				$.ajax({url: url, method: 'post', dataType: "json"})
+					.done(function(data) {
+						if (data.code != 0) {
+							alert(data.msg || '获取失败');
+							return ;
+						}
+						var ulList = $('.js-discuss-list');
+						var content = '';
+						for (i in data.comments) {
+							var commentVo = data.comments[i].map;
+							var liCon = '<li>';
+							if (window.userId == commentVo.owner.id) {
+								liCon += '<a class=" icon-remove remove_comment" href="javascript:void(0)" title="删除评论" id="'+commentVo.comment.id+'"></a>';
+					            
+							}
+							liCon += '<a class="_4zhc5 _iqaka" title="'+commentVo.owner.nickname+'" href="/profile/'+commentVo.owner.id+'">'+commentVo.owner.nickname+'</a>';
+				            liCon += (['<span>',
+				                        '<span>'+commentVo.comment.content+'</span>',
+				                    '</span>',
+				                '</li>'].join(''));
+							content += liCon;
+						}
+						ulList.html(content);
+					                    
+					}).fail(function(data) {
+						alert("获取失败");
+					})
+			}
+		});
+		
+	</script>
+</body>
+</html>

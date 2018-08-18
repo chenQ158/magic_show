@@ -1,0 +1,22 @@
+/* layout */
+.container {
+    position: relative;
+    height: auto;
+    min-height: 100%;
+    background-color:#fafafa
+}
+section.section {
+    background: url(../../images/img/bg1.jpg) no-repeat;
+    background-size: 100%;
+    opacity: 0.8;
+    background-attachment: fixed;
+}
+.main {
+    background-color:#fafafa;
+}
+
+.page-main {
+    margin: 0 auto;
+    width: 960px;
+    padding: 20px 20px 120px;
+}

@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="Keywords" content="美图,高清,壁纸,分享">
+    <title>错误处理</title>
+    <link rel="stylesheet" href="/styles/pages/login.css">
+</head>
+<body>
+    <div class="container">
+        <section>
+			<#include "/common/header.html">
+			
+			<main class="main login-main" role="main">
+			    <article class="login-cont clearfix">
+			        <div class="login-pic-box">
+			            <img src="/images/res/login.jpg">
+			        </div>
+			        <div class="login-wrapper">
+			        	错误编号：${code!''}&nbsp;&nbsp;${msg!''}
+			        	错误信息：${data!''}
+			        	返回页面：${prev!''}
+			        </div>
+			    </article>
+			</main>
+			
+			<#include "/common/footer.html">
+		</section>
+    </div>
+</body>
+</html>
